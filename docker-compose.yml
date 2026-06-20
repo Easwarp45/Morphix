@@ -1,0 +1,158 @@
+# =============================================================================
+# Cloud File Converter — Docker Compose (Development)
+# =============================================================================
+
+services:
+  # ── PostgreSQL Database ──────────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-cloudconv}
+      POSTGRES_USER: ${POSTGRES_USER:-cloudconv}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cloudconv}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cloudconv}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis ────────────────────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── MinIO (S3-compatible storage) ────────────────────────────────────────
+  minio:
+    image: minio/minio:latest
+    restart: unless-stopped
+    environment:
+      MINIO_ROOT_USER: ${AWS_ACCESS_KEY_ID:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${AWS_SECRET_ACCESS_KEY:-minioadmin}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  # ── Django Backend ───────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend/Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.development
+      - DATABASE_URL=postgres://${POSTGRES_USER:-cloudconv}:${POSTGRES_PASSWORD:-cloudconv}@postgres:5432/${POSTGRES_DB:-cloudconv}
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - AWS_S3_ENDPOINT_URL=http://minio:9000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - backend_static:/app/staticfiles
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    command: >
+      sh -c "python manage.py migrate --noinput &&
+             python manage.py runserver 0.0.0.0:8000"
+
+  # ── Celery Worker ────────────────────────────────────────────────────────
+  celery-worker:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend/Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.development
+      - DATABASE_URL=postgres://${POSTGRES_USER:-cloudconv}:${POSTGRES_PASSWORD:-cloudconv}@postgres:5432/${POSTGRES_DB:-cloudconv}
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - AWS_S3_ENDPOINT_URL=http://minio:9000
+    volumes:
+      - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    command: celery -A config.celery worker --loglevel=info --concurrency=2
+
+  # ── Celery Beat ──────────────────────────────────────────────────────────
+  celery-beat:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend/Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.development
+      - DATABASE_URL=postgres://${POSTGRES_USER:-cloudconv}:${POSTGRES_PASSWORD:-cloudconv}@postgres:5432/${POSTGRES_DB:-cloudconv}
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    volumes:
+      - ./backend:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: celery -A config.celery beat --loglevel=info
+
+  # ── Flower (Celery Monitoring) ───────────────────────────────────────────
+  flower:
+    build:
+      context: ./backend
+      dockerfile: ../docker/backend/Dockerfile
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    ports:
+      - "5555:5555"
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: celery -A config.celery flower --port=5555
+
+  # ── React Frontend ──────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ../docker/frontend/Dockerfile
+    restart: unless-stopped
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      - VITE_API_URL=http://localhost:8000/api/v1
+
+volumes:
+  postgres_data:
+  redis_data:
+  minio_data:
+  backend_static:

@@ -1,0 +1,8 @@
+# Production dependencies
+-r base.txt
+
+# Monitoring
+sentry-sdk[django]>=2.17,<3.0
+
+# Performance
+django-redis>=5.4,<6.0
