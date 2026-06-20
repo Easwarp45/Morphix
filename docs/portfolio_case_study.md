@@ -1,4 +1,4 @@
-﻿# Case Study: Morphix Hardening
+# Case Study: Morphix Hardening
 
 A detailed breakdown of technical decisions, scaling, and architectural choices made to build a production-ready, portfolio-grade cloud conversion platform.
 
