@@ -1,27 +1,27 @@
-# =============================================================================
-# Cloud File Converter — Docker Compose (Development)
+﻿# =============================================================================
+# Morphix â€” Docker Compose (Development)
 # =============================================================================
 
 services:
-  # ── PostgreSQL Database ──────────────────────────────────────────────────
+  # â”€â”€ PostgreSQL Database â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   postgres:
     image: postgres:16-alpine
     restart: unless-stopped
     environment:
-      POSTGRES_DB: ${POSTGRES_DB:-cloudconv}
-      POSTGRES_USER: ${POSTGRES_USER:-cloudconv}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-cloudconv}
+      POSTGRES_DB: ${POSTGRES_DB:-morphix}
+      POSTGRES_USER: ${POSTGRES_USER:-morphix}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-morphix}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-cloudconv}"]
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-morphix}"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  # ── Redis ────────────────────────────────────────────────────────────────
+  # â”€â”€ Redis â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   redis:
     image: redis:7-alpine
     restart: unless-stopped
@@ -35,7 +35,7 @@ services:
       timeout: 5s
       retries: 5
 
-  # ── MinIO (S3-compatible storage) ────────────────────────────────────────
+  # â”€â”€ MinIO (S3-compatible storage) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   minio:
     image: minio/minio:latest
     restart: unless-stopped
@@ -54,7 +54,7 @@ services:
       timeout: 20s
       retries: 3
 
-  # ── Django Backend ───────────────────────────────────────────────────────
+  # â”€â”€ Django Backend â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   backend:
     build:
       context: ./backend
@@ -63,7 +63,7 @@ services:
     env_file: .env
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.development
-      - DATABASE_URL=postgres://${POSTGRES_USER:-cloudconv}:${POSTGRES_PASSWORD:-cloudconv}@postgres:5432/${POSTGRES_DB:-cloudconv}
+      - DATABASE_URL=postgres://${POSTGRES_USER:-morphix}:${POSTGRES_PASSWORD:-morphix}@postgres:5432/${POSTGRES_DB:-morphix}
       - CELERY_BROKER_URL=redis://redis:6379/0
       - AWS_S3_ENDPOINT_URL=http://minio:9000
     ports:
@@ -82,7 +82,7 @@ services:
       sh -c "python manage.py migrate --noinput &&
              python manage.py runserver 0.0.0.0:8000"
 
-  # ── Celery Worker ────────────────────────────────────────────────────────
+  # â”€â”€ Celery Worker â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   celery-worker:
     build:
       context: ./backend
@@ -91,7 +91,7 @@ services:
     env_file: .env
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.development
-      - DATABASE_URL=postgres://${POSTGRES_USER:-cloudconv}:${POSTGRES_PASSWORD:-cloudconv}@postgres:5432/${POSTGRES_DB:-cloudconv}
+      - DATABASE_URL=postgres://${POSTGRES_USER:-morphix}:${POSTGRES_PASSWORD:-morphix}@postgres:5432/${POSTGRES_DB:-morphix}
       - CELERY_BROKER_URL=redis://redis:6379/0
       - AWS_S3_ENDPOINT_URL=http://minio:9000
     volumes:
@@ -103,7 +103,7 @@ services:
         condition: service_healthy
     command: celery -A config.celery worker --loglevel=info --concurrency=2
 
-  # ── Celery Beat ──────────────────────────────────────────────────────────
+  # â”€â”€ Celery Beat â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   celery-beat:
     build:
       context: ./backend
@@ -112,7 +112,7 @@ services:
     env_file: .env
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.development
-      - DATABASE_URL=postgres://${POSTGRES_USER:-cloudconv}:${POSTGRES_PASSWORD:-cloudconv}@postgres:5432/${POSTGRES_DB:-cloudconv}
+      - DATABASE_URL=postgres://${POSTGRES_USER:-morphix}:${POSTGRES_PASSWORD:-morphix}@postgres:5432/${POSTGRES_DB:-morphix}
       - CELERY_BROKER_URL=redis://redis:6379/0
     volumes:
       - ./backend:/app
@@ -121,7 +121,7 @@ services:
         condition: service_healthy
     command: celery -A config.celery beat --loglevel=info
 
-  # ── Flower (Celery Monitoring) ───────────────────────────────────────────
+  # â”€â”€ Flower (Celery Monitoring) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   flower:
     build:
       context: ./backend
@@ -137,7 +137,7 @@ services:
         condition: service_healthy
     command: celery -A config.celery flower --port=5555
 
-  # ── React Frontend ──────────────────────────────────────────────────────
+  # â”€â”€ React Frontend â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   frontend:
     build:
       context: ./frontend

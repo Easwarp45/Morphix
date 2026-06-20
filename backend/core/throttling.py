@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Custom Throttling
+﻿"""
+Morphix â€” Custom Throttling
 """
 
 from rest_framework.throttling import UserRateThrottle, SimpleRateThrottle

@@ -1,6 +1,6 @@
-# Next Project Blueprint — AI Resume Analyzer
+﻿# Next Project Blueprint â€” AI Resume Analyzer
 
-A production-grade AI-powered resume analysis and career coaching platform. Designed as the natural sequel to Cloud File Converter, this project demonstrates **NLP, LLM integration, and user-facing AI features** — the most in-demand skills in 2024-2025.
+A production-grade AI-powered resume analysis and career coaching platform. Designed as the natural sequel to Morphix, this project demonstrates **NLP, LLM integration, and user-facing AI features** â€” the most in-demand skills in 2024-2025.
 
 ---
 
@@ -56,30 +56,30 @@ Upload a resume + job description. Receive:
 ## Technical Architecture
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                      Frontend (Next.js 14)               │
-│           React Server Components + Streaming UI         │
-└──────────────────────────┬──────────────────────────────┘
-                           │
-┌──────────────────────────▼──────────────────────────────┐
-│               FastAPI Backend (Python 3.12)              │
-│  /upload → /analyze → /improve → /export               │
-└──────┬──────────────┬──────────────┬────────────────────┘
-       │              │              │
-  ┌────▼────┐   ┌─────▼─────┐  ┌────▼────────┐
-  │ AWS S3  │   │  Celery   │  │  PostgreSQL │
-  │ Uploads │   │  Workers  │  │  + pgvector │
-  └─────────┘   └─────┬─────┘  └─────────────┘
-                      │
-              ┌───────▼────────┐
-              │  AI Pipeline   │
-              │  LlamaIndex    │
-              │  Gemini API    │
-              │  LangChain     │
-              └────────────────┘
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚                      Frontend (Next.js 14)               â”‚
+â”‚           React Server Components + Streaming UI         â”‚
+â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                           â”‚
+â”Œâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”
+â”‚               FastAPI Backend (Python 3.12)              â”‚
+â”‚  /upload â†’ /analyze â†’ /improve â†’ /export               â”‚
+â””â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+       â”‚              â”‚              â”‚
+  â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”   â”Œâ”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”  â”Œâ”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”
+  â”‚ AWS S3  â”‚   â”‚  Celery   â”‚  â”‚  PostgreSQL â”‚
+  â”‚ Uploads â”‚   â”‚  Workers  â”‚  â”‚  + pgvector â”‚
+  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜   â””â”€â”€â”€â”€â”€â”¬â”€â”€â”€â”€â”€â”˜  â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
+                      â”‚
+              â”Œâ”€â”€â”€â”€â”€â”€â”€â–¼â”€â”€â”€â”€â”€â”€â”€â”€â”
+              â”‚  AI Pipeline   â”‚
+              â”‚  LlamaIndex    â”‚
+              â”‚  Gemini API    â”‚
+              â”‚  LangChain     â”‚
+              â””â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”˜
 ```
 
-### New Skills Demonstrated (vs Cloud File Converter)
+### New Skills Demonstrated (vs Morphix)
 - **LLM Orchestration**: LangChain or LlamaIndex for chaining AI calls
 - **Vector Search**: pgvector for semantic resume-JD matching
 - **Streaming AI responses**: Real-time token-by-token output
@@ -97,9 +97,9 @@ Upload a resume + job description. Receive:
 | AI | Gemini 1.5 Pro | Long context (1M tokens), free tier, multimodal |
 | NLP | spaCy + NLTK | Keyword extraction, entity recognition |
 | Vector DB | pgvector (PostgreSQL) | No new infrastructure, semantic similarity |
-| Storage | AWS S3 | Already familiar from Cloud File Converter |
-| Queue | Celery + Redis | Same as Cloud File Converter |
-| Deploy | Vercel (FE) + Render (BE) | Same as Cloud File Converter |
+| Storage | AWS S3 | Already familiar from Morphix |
+| Queue | Celery + Redis | Same as Morphix |
+| Deploy | Vercel (FE) + Render (BE) | Same as Morphix |
 
 ---
 
@@ -107,8 +107,8 @@ Upload a resume + job description. Receive:
 
 | Week | Focus |
 |------|-------|
-| 1-2 | Project setup, auth, file upload (reuse Cloud File Converter patterns) |
-| 3-4 | Resume parser (PDF/DOCX → structured JSON via spaCy) |
+| 1-2 | Project setup, auth, file upload (reuse Morphix patterns) |
+| 3-4 | Resume parser (PDF/DOCX â†’ structured JSON via spaCy) |
 | 5-6 | ATS keyword matching engine (TF-IDF + semantic similarity via pgvector) |
 | 7-8 | Gemini AI integration (resume critique, rewrite suggestions) |
 | 9 | Streaming UI (real-time AI responses with Next.js streaming) |
@@ -120,10 +120,10 @@ Upload a resume + job description. Receive:
 
 ## Key Technical Challenges (Interview Stories)
 
-1. **Parsing diverse resume formats**: PDFs created from Word, scanned PDFs, multi-column layouts — each requires different parsing strategies
+1. **Parsing diverse resume formats**: PDFs created from Word, scanned PDFs, multi-column layouts â€” each requires different parsing strategies
 2. **ATS simulation accuracy**: Real ATS systems are proprietary; must make statistical approximations
-3. **LLM output consistency**: AI rewrites need deterministic structure — prompt engineering + output parsers
-4. **Streaming large responses**: Gemini can take 30+ seconds for full analysis — streaming keeps UX responsive
+3. **LLM output consistency**: AI rewrites need deterministic structure â€” prompt engineering + output parsers
+4. **Streaming large responses**: Gemini can take 30+ seconds for full analysis â€” streaming keeps UX responsive
 
 ---
 
@@ -140,7 +140,7 @@ If you prefer a data engineering / analytics focus:
 | ML | Salary prediction model (scikit-learn) |
 | API | FastAPI with GraphQL |
 
-**Story**: "Built a platform that scraped 50K+ job postings and built salary prediction models — found that adding 'AWS' to your title increases listed salary by 18%."
+**Story**: "Built a platform that scraped 50K+ job postings and built salary prediction models â€” found that adding 'AWS' to your title increases listed salary by 18%."
 
 ---
 
@@ -149,8 +149,8 @@ If you prefer a data engineering / analytics focus:
 **Build AI Resume Analyzer.** It:
 1. Directly solves a problem your interviewers understand personally
 2. Demonstrates LLM integration (the hottest skill in 2024)
-3. Has a clear user journey (upload → analyze → improve)
-4. Can leverage patterns you already built in Cloud File Converter
+3. Has a clear user journey (upload â†’ analyze â†’ improve)
+4. Can leverage patterns you already built in Morphix
 5. Makes a compelling demo in interviews
 
 Start with the `/goal` command to plan this as your next project.

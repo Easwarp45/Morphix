@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Celery Tasks for File Conversion
+﻿"""
+Morphix â€” Celery Tasks for File Conversion
 """
 
 import logging
@@ -137,7 +137,7 @@ def process_conversion(self, conversion_id: str):
         send_conversion_update(conversion)
 
         logger.info(
-            "Conversion completed: %s (%s → %s) in %.2fs",
+            "Conversion completed: %s (%s â†’ %s) in %.2fs",
             conversion_id,
             conversion.source_format,
             conversion.target_format,
@@ -153,7 +153,7 @@ def process_conversion(self, conversion_id: str):
         conversion.save()
         send_conversion_update(conversion)
 
-        logger.exception("Conversion failed: %s — %s", conversion_id, str(exc))
+        logger.exception("Conversion failed: %s â€” %s", conversion_id, str(exc))
 
         # Retry on transient errors
         if self.request.retries < self.max_retries:

@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Analytics URLs
+﻿"""
+Morphix â€” Analytics URLs
 """
 
 from django.urls import path

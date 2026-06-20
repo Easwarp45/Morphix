@@ -1,4 +1,4 @@
-# Cloud File Converter — Interview Preparation Guide
+﻿# Morphix â€” Interview Preparation Guide
 
 A comprehensive Q&A covering every dimension an interviewer might probe. Organized by topic with STAR-format answers where applicable.
 
@@ -6,20 +6,20 @@ A comprehensive Q&A covering every dimension an interviewer might probe. Organiz
 
 ## 1. Architecture & System Design
 
-### Q: Walk me through the overall architecture of Cloud File Converter.
+### Q: Walk me through the overall architecture of Morphix.
 
 **A:** The platform is a cloud-native SaaS with three main layers:
 
-1. **Presentation Layer** — React 18 + TypeScript SPA served via Vercel. Communicates with the backend via REST API and WebSockets for real-time updates.
-2. **Application Layer** — Django + Django REST Framework handling business logic. Django Channels manages WebSocket connections for live conversion progress. Gunicorn with Uvicorn workers handles the ASGI server.
-3. **Worker Layer** — Celery workers (backed by Redis as broker) process file conversions asynchronously. Celery Beat handles scheduled tasks like file cleanup.
-4. **Data Layer** — PostgreSQL for relational data (users, files, jobs), Redis for caching + task queue, AWS S3 for file object storage with CloudFront CDN for distribution.
+1. **Presentation Layer** â€” React 18 + TypeScript SPA served via Vercel. Communicates with the backend via REST API and WebSockets for real-time updates.
+2. **Application Layer** â€” Django + Django REST Framework handling business logic. Django Channels manages WebSocket connections for live conversion progress. Gunicorn with Uvicorn workers handles the ASGI server.
+3. **Worker Layer** â€” Celery workers (backed by Redis as broker) process file conversions asynchronously. Celery Beat handles scheduled tasks like file cleanup.
+4. **Data Layer** â€” PostgreSQL for relational data (users, files, jobs), Redis for caching + task queue, AWS S3 for file object storage with CloudFront CDN for distribution.
 
 ```
-Client → [CloudFront / Vercel] → [Nginx] → [Gunicorn/Uvicorn] → [Django]
-                                                                       ↓
+Client â†’ [CloudFront / Vercel] â†’ [Nginx] â†’ [Gunicorn/Uvicorn] â†’ [Django]
+                                                                       â†“
                                                               [Celery Worker]
-                                                                       ↓
+                                                                       â†“
                                                   [PostgreSQL] [Redis] [S3]
 ```
 
@@ -28,7 +28,7 @@ Client → [CloudFront / Vercel] → [Nginx] → [Gunicorn/Uvicorn] → [Django]
 ### Q: Why did you choose Celery + Redis over other async approaches?
 
 **A:** Several reasons:
-- **Reliability**: Celery provides task persistence — if a worker crashes mid-conversion, the task can be retried automatically.
+- **Reliability**: Celery provides task persistence â€” if a worker crashes mid-conversion, the task can be retried automatically.
 - **Scalability**: Workers can be scaled horizontally independently of the web server. Adding more workers requires just spinning up new containers.
 - **Ecosystem**: Rich ecosystem with Flower for monitoring, Django-Celery-Beat for scheduling, and extensive retry/error handling.
 - **Alternatives considered**: Django background tasks (not distributed), AWS SQS (would add complexity and cost for MVP), asyncio (not suitable for CPU-bound conversion work).
@@ -64,14 +64,14 @@ In benchmarks, 1,000 concurrent conversion tasks were processed with horizontal 
 
 **A:** The architecture already supports horizontal scaling. The roadmap would be:
 
-1. **Web Tier**: Auto-scaling EC2 group or Render auto-scale behind a load balancer. Stateless — any instance can serve any request.
+1. **Web Tier**: Auto-scaling EC2 group or Render auto-scale behind a load balancer. Stateless â€” any instance can serve any request.
 2. **Database**: Read replicas for analytics queries, connection pooling via PgBouncer.
 3. **Workers**: Separate worker pools by task type (high-priority, video, OCR) with different scaling policies.
-4. **CDN**: CloudFront already handles file delivery — this doesn't scale with user count.
+4. **CDN**: CloudFront already handles file delivery â€” this doesn't scale with user count.
 5. **Queue**: Redis Cluster for high availability. Consider SQS for very high throughput.
 6. **Caching**: Redis caching for conversion format metadata, user quota lookups, and frequently accessed file metadata.
 
-At 100K users, the bottleneck would be the conversion workers — that's where I'd invest in auto-scaling first.
+At 100K users, the bottleneck would be the conversion workers â€” that's where I'd invest in auto-scaling first.
 
 ---
 
@@ -80,11 +80,11 @@ At 100K users, the bottleneck would be the conversion workers — that's where I
 ### Q: Explain your approach to file storage and security.
 
 **A:** Files are stored in AWS S3 with:
-- **Private bucket** — no public access whatsoever
-- **Signed URLs** — all file access uses pre-signed S3 URLs with 1-hour expiry
-- **Server-side encryption** — AES-256 at rest
-- **CloudFront OAC** — only CloudFront can read from S3; users never access S3 directly
-- **Lifecycle rules** — files auto-deleted after 7 days; aborted multipart uploads cleaned up after 1 day
+- **Private bucket** â€” no public access whatsoever
+- **Signed URLs** â€” all file access uses pre-signed S3 URLs with 1-hour expiry
+- **Server-side encryption** â€” AES-256 at rest
+- **CloudFront OAC** â€” only CloudFront can read from S3; users never access S3 directly
+- **Lifecycle rules** â€” files auto-deleted after 7 days; aborted multipart uploads cleaned up after 1 day
 
 For shareable links, we generate a UUID token stored in our database with an expiry timestamp. The download endpoint validates the token and generates a fresh signed URL on demand.
 
@@ -93,9 +93,9 @@ For shareable links, we generate a UUID token stored in our database with an exp
 ### Q: How does your authentication work?
 
 **A:** JWT-based:
-- `POST /auth/register/` → returns `access` (15 min) + `refresh` (7 days) tokens
-- `POST /auth/login/` → same
-- `POST /auth/token/refresh/` → uses refresh token to get new access token
+- `POST /auth/register/` â†’ returns `access` (15 min) + `refresh` (7 days) tokens
+- `POST /auth/login/` â†’ same
+- `POST /auth/token/refresh/` â†’ uses refresh token to get new access token
 - All protected endpoints require `Authorization: Bearer <access_token>`
 
 For Google OAuth, we use `dj-rest-auth` with `allauth`. The frontend gets a Google `id_token`, sends it to our `/auth/google/`, we verify it against Google's public keys, create or retrieve the user, and return our own JWT pair.
@@ -131,7 +131,7 @@ Challenges:
 
 **Fallback strategy**: If `GEMINI_API_KEY` is missing or the API call fails, we fall back to a local extractive summarization: select the first sentence of each paragraph, deduplicate, and return the top N sentences by TF-IDF score.
 
-This means the feature degrades gracefully rather than failing hard — important for reliability.
+This means the feature degrades gracefully rather than failing hard â€” important for reliability.
 
 **Cost control**: Summarization is triggered explicitly by the user (not automatic), and we cache summaries by file hash to avoid re-processing identical uploads.
 
@@ -156,7 +156,7 @@ This means the feature degrades gracefully rather than failing hard — importan
 **A:** GitHub Actions:
 1. **On PR**: Run unit tests (matrix: Python 3.11, 3.12), ESLint, TypeScript type-check, `ruff` linting, `pip-audit` security scan
 2. **On merge to main**: All of the above + `python manage.py check --deploy` + production Vite build
-3. **Deploy**: Manual trigger (or webhook) runs `scripts/deploy.sh` on EC2 — pulls code, installs deps, migrates, collectstatic, restarts Gunicorn/Celery via Supervisor
+3. **Deploy**: Manual trigger (or webhook) runs `scripts/deploy.sh` on EC2 â€” pulls code, installs deps, migrates, collectstatic, restarts Gunicorn/Celery via Supervisor
 
 I chose manual deploy triggers (rather than auto-deploy on push) for a portfolio project to avoid unexpected production changes. In a team environment, I'd use staged deployments with automated rollbacks.
 
@@ -212,9 +212,9 @@ The 1,000-file test showed consistent throughput with no worker crashes or queue
 ### Q: What caching strategies did you implement?
 
 **A:**
-1. **Redis cache**: Conversion format metadata (supported formats list) cached for 24 hours — avoids DB queries on every upload
+1. **Redis cache**: Conversion format metadata (supported formats list) cached for 24 hours â€” avoids DB queries on every upload
 2. **User quota cache**: Current user's daily conversion count cached in Redis for fast rate limit checks
-3. **CloudFront CDN**: Converted file downloads served from CDN edge nodes — global distribution reduces latency
+3. **CloudFront CDN**: Converted file downloads served from CDN edge nodes â€” global distribution reduces latency
 4. **Django cache middleware**: Health check endpoint cached for 30 seconds to prevent DB hammering from uptime monitors
 5. **S3 cache headers**: CloudFront-served files get `Cache-Control: max-age=86400` headers
 
@@ -231,18 +231,18 @@ The 1,000-file test showed consistent throughput with no worker crashes or queue
 **Action**: Evaluated SSE (Server-Sent Events), polling, and WebSockets. Chose WebSockets because they support bi-directional communication (useful for cancellation). Used Django Channels with Redis as the channel layer. Celery workers publish progress events to Redis, Channels delivers them to the WebSocket connection.
 **Result**: Users see a progress bar updating every few seconds, improving perceived performance. Bounce rate on conversion page dropped significantly in user testing.
 
-The hardest part was managing WebSocket authentication — HTTP cookies don't work for WebSocket upgrade requests, so I switched to passing the JWT in the query parameter for the initial handshake, then immediately validating and discarding it from memory.
+The hardest part was managing WebSocket authentication â€” HTTP cookies don't work for WebSocket upgrade requests, so I switched to passing the JWT in the query parameter for the initial handshake, then immediately validating and discarding it from memory.
 
 ---
 
 ### Q: If you had 3 more months, what would you build next?
 
 **A:**
-1. **Team Workspaces** — Shared conversion queues, admin permissions, usage analytics per team
-2. **Mobile App** — React Native for iOS/Android with push notifications for conversion completion
-3. **Plugin System** — Allow third-party converters to register via a plugin API (e.g., specialized scientific format converters)
-4. **Webhook Integration** — Let users register webhooks to notify their own systems when conversions complete (Zapier-style)
-5. **Conversion Templates** — Save compression settings, OCR language, output quality preferences as reusable templates
+1. **Team Workspaces** â€” Shared conversion queues, admin permissions, usage analytics per team
+2. **Mobile App** â€” React Native for iOS/Android with push notifications for conversion completion
+3. **Plugin System** â€” Allow third-party converters to register via a plugin API (e.g., specialized scientific format converters)
+4. **Webhook Integration** â€” Let users register webhooks to notify their own systems when conversions complete (Zapier-style)
+5. **Conversion Templates** â€” Save compression settings, OCR language, output quality preferences as reusable templates
 
 ---
 
@@ -261,12 +261,12 @@ The principle: get the core conversion pipeline working reliably first, then lay
 ### Q: How do you ensure code quality on a solo project?
 
 **A:** Discipline and tooling:
-- **Pre-commit hooks**: `ruff` + `black` run on every commit — no manual formatting
+- **Pre-commit hooks**: `ruff` + `black` run on every commit â€” no manual formatting
 - **Test-first thinking**: Write tests before marking a feature done
-- **Code review via PR**: Even solo, I create PRs from feature branches to main — forces me to review my own diff
-- **CI gates**: Tests must pass before merge — CI acts as an objective code reviewer
+- **Code review via PR**: Even solo, I create PRs from feature branches to main â€” forces me to review my own diff
+- **CI gates**: Tests must pass before merge â€” CI acts as an objective code reviewer
 - **Documentation as you go**: Write docstrings and update the README as features are built, not after
 
 ---
 
-*Last updated: 2024-12-01 | Cloud File Converter v1.0.0*
+*Last updated: 2024-12-01 | Morphix v1.0.0*

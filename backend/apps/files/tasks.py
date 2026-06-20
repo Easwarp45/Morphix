@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Files Celery Tasks
+﻿"""
+Morphix â€” Files Celery Tasks
 """
 
 import logging

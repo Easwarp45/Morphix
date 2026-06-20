@@ -1,4 +1,4 @@
-# Cloud File Converter — Deployment Guide
+﻿# Morphix â€” Deployment Guide
 
 ## Development (Docker Compose)
 
@@ -10,7 +10,7 @@
 ```bash
 # Clone and configure
 git clone <repo-url>
-cd cloud-file-converter
+cd morphix
 cp .env.example .env
 
 # Start all services
@@ -38,7 +38,7 @@ docker compose exec backend python manage.py createsuperuser
 
 ## Production Deployment
 
-### Frontend → Vercel
+### Frontend â†’ Vercel
 
 1. Connect your GitHub repository to Vercel
 2. Set root directory to `frontend/`
@@ -46,7 +46,7 @@ docker compose exec backend python manage.py createsuperuser
    - `VITE_API_URL` = your backend URL (e.g., `https://api.yourapp.com/api/v1`)
 4. Deploy
 
-### Backend → Render
+### Backend â†’ Render
 
 1. Create a new **Web Service** on Render
 2. Set root directory to `backend/`
@@ -57,17 +57,17 @@ docker compose exec backend python manage.py createsuperuser
    - Same repo, same root
    - Start command: `celery -A config.celery worker --loglevel=info`
 
-### Database → Render/Supabase
+### Database â†’ Render/Supabase
 
 - Create a managed PostgreSQL database
 - Set `DATABASE_URL` in your backend environment
 
-### Redis → Render/Upstash
+### Redis â†’ Render/Upstash
 
 - Create a managed Redis instance
 - Set `CELERY_BROKER_URL` and `REDIS_URL`
 
-### Storage → AWS S3
+### Storage â†’ AWS S3
 
 - Create an S3 bucket (private ACL)
 - Create an IAM user with S3 access

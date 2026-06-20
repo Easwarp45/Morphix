@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — URL Configuration
+﻿"""
+Morphix â€” URL Configuration
 """
 
 from django.conf import settings

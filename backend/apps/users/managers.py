@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — User Manager
+﻿"""
+Morphix â€” User Manager
 """
 
 from django.contrib.auth.models import BaseUserManager
@@ -34,7 +34,7 @@ class UserManager(BaseUserManager):
         """Create and return a guest user."""
         import uuid
         from django.conf import settings
-        guest_email = f"guest_{uuid.uuid4().hex}@cloudconv.local"
+        guest_email = f"guest_{uuid.uuid4().hex}@morphix.local"
         user = self.model(
             email=guest_email,
             is_guest=True,

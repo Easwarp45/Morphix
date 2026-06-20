@@ -1,18 +1,18 @@
-# Cloud File Converter — Production Launch Checklist
+﻿# Morphix â€” Production Launch Checklist
 
-Use this checklist before every production deployment. All items must be ✅ before going live.
+Use this checklist before every production deployment. All items must be âœ… before going live.
 
 ---
 
-## 🔐 Security
+## ðŸ” Security
 
 - [ ] `DJANGO_DEBUG=False` is set in production environment
 - [ ] `DJANGO_SECRET_KEY` is a unique 50+ character random string (not the dev key)
-- [ ] All secrets are stored in environment variables — **never in code or Git**
+- [ ] All secrets are stored in environment variables â€” **never in code or Git**
 - [ ] `.env.production` is in `.gitignore`
 - [ ] `ALLOWED_HOSTS` lists only your actual domain(s)
 - [ ] `CORS_ALLOWED_ORIGINS` lists only your actual frontend domain(s)
-- [ ] `SECURE_SSL_REDIRECT=True` (Django will redirect HTTP → HTTPS)
+- [ ] `SECURE_SSL_REDIRECT=True` (Django will redirect HTTP â†’ HTTPS)
 - [ ] `SESSION_COOKIE_SECURE=True` and `CSRF_COOKIE_SECURE=True`
 - [ ] `SECURE_HSTS_SECONDS=31536000` with subdomains enabled
 - [ ] Admin URL (`/admin/`) is restricted to known IPs (Nginx `allow` directive)
@@ -25,7 +25,7 @@ Use this checklist before every production deployment. All items must be ✅ bef
 
 ---
 
-## 🗄️ Database
+## ðŸ—„ï¸ Database
 
 - [ ] PostgreSQL 15+ is running and accessible
 - [ ] `python manage.py migrate --noinput` completed successfully
@@ -35,7 +35,7 @@ Use this checklist before every production deployment. All items must be ✅ bef
 
 ---
 
-## ⚡ Redis & Celery
+## âš¡ Redis & Celery
 
 - [ ] Redis is running and accessible
 - [ ] Celery worker is running and processing tasks
@@ -46,7 +46,7 @@ Use this checklist before every production deployment. All items must be ✅ bef
 
 ---
 
-## ☁️ AWS S3
+## â˜ï¸ AWS S3
 
 - [ ] S3 bucket created in correct region
 - [ ] Lifecycle rules configured (auto-delete after 7 days)
@@ -56,17 +56,17 @@ Use this checklist before every production deployment. All items must be ✅ bef
 
 ---
 
-## 🌐 Networking & DNS
+## ðŸŒ Networking & DNS
 
 - [ ] DNS A/CNAME records point to your server/load balancer
 - [ ] SSL certificate issued and valid (Let's Encrypt or ACM)
-- [ ] HTTPS redirect is working (HTTP → HTTPS)
+- [ ] HTTPS redirect is working (HTTP â†’ HTTPS)
 - [ ] `api.yourdomain.com` resolves correctly
 - [ ] WebSocket `wss://` connection tested in browser
 
 ---
 
-## 🏗️ Backend Deployment
+## ðŸ—ï¸ Backend Deployment
 
 - [ ] Gunicorn running with Uvicorn workers (for async/WebSocket support)
 - [ ] Supervisor configured and services auto-restart on failure
@@ -77,18 +77,18 @@ Use this checklist before every production deployment. All items must be ✅ bef
 
 ---
 
-## 🖥️ Frontend Deployment
+## ðŸ–¥ï¸ Frontend Deployment
 
 - [ ] Vite production build created: `npm run build`
 - [ ] `VITE_API_URL` points to production API
 - [ ] `VITE_WS_URL` points to production WebSocket
-- [ ] SPA rewrites configured (all routes → `index.html`)
+- [ ] SPA rewrites configured (all routes â†’ `index.html`)
 - [ ] Security headers added in `vercel.json` or Nginx
 - [ ] PWA manifest and service worker are served correctly
 
 ---
 
-## 📈 Observability
+## ðŸ“ˆ Observability
 
 - [ ] Health check endpoint `GET /api/v1/health/` returns `200 OK`
 - [ ] All infrastructure checks pass (database, redis, storage)
@@ -99,7 +99,7 @@ Use this checklist before every production deployment. All items must be ✅ bef
 
 ---
 
-## 🧪 Testing
+## ðŸ§ª Testing
 
 - [ ] All backend unit tests pass: `pytest`
 - [ ] E2E tests pass against production or staging environment
@@ -112,19 +112,19 @@ Use this checklist before every production deployment. All items must be ✅ bef
 
 ---
 
-## 📋 Go-Live Sign-off
+## ðŸ“‹ Go-Live Sign-off
 
 | Check | Status | Notes |
 |-------|--------|-------|
-| Security hardening | ⬜ | |
-| Database migrations | ⬜ | |
-| Redis + Celery healthy | ⬜ | |
-| S3 + CloudFront working | ⬜ | |
-| SSL valid | ⬜ | |
-| Health check passing | ⬜ | |
-| Frontend deployed | ⬜ | |
-| Sentry connected | ⬜ | |
-| All tests green | ⬜ | |
+| Security hardening | â¬œ | |
+| Database migrations | â¬œ | |
+| Redis + Celery healthy | â¬œ | |
+| S3 + CloudFront working | â¬œ | |
+| SSL valid | â¬œ | |
+| Health check passing | â¬œ | |
+| Frontend deployed | â¬œ | |
+| Sentry connected | â¬œ | |
+| All tests green | â¬œ | |
 
 > **Sign-off Date:** ___________
 > **Deployed by:** ___________

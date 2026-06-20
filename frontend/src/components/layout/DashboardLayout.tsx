@@ -1,5 +1,5 @@
-/* =============================================================================
-   Dashboard Layout — Sidebar + content area
+﻿/* =============================================================================
+   Dashboard Layout â€” Sidebar + content area
    ============================================================================= */
 
 import { Link, useLocation } from 'react-router-dom';
@@ -121,7 +121,7 @@ export function DashboardLayout({ children }: { children: ReactNode }) {
           <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center">
             <Zap className="w-4 h-4 text-white" />
           </div>
-          <span className="text-base font-bold">CloudConvert</span>
+          <span className="text-base font-bold">morphixert</span>
         </Link>
         <div className="ml-auto flex items-center space-x-1">
           {sidebarLinks.map((link) => {

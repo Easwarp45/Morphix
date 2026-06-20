@@ -1,5 +1,5 @@
-/* =============================================================================
-   Landing Page — Hero, Features, How It Works, CTA
+﻿/* =============================================================================
+   Landing Page â€” Hero, Features, How It Works, CTA
    ============================================================================= */
 
 import { motion } from 'framer-motion';
@@ -10,8 +10,8 @@ import {
 } from 'lucide-react';
 
 const features = [
-  { icon: FileText, title: 'Document Conversion', desc: 'PDF ↔ DOCX, TXT ↔ PDF with layout preservation', color: 'from-blue-500 to-cyan-500' },
-  { icon: Image, title: 'Image Conversion', desc: 'PNG, JPG, WEBP — convert and compress instantly', color: 'from-purple-500 to-pink-500' },
+  { icon: FileText, title: 'Document Conversion', desc: 'PDF â†” DOCX, TXT â†” PDF with layout preservation', color: 'from-blue-500 to-cyan-500' },
+  { icon: Image, title: 'Image Conversion', desc: 'PNG, JPG, WEBP â€” convert and compress instantly', color: 'from-purple-500 to-pink-500' },
   { icon: Archive, title: 'Archive Support', desc: 'Create and extract ZIP archives securely', color: 'from-amber-500 to-orange-500' },
   { icon: Shield, title: 'Secure Processing', desc: 'End-to-end encryption, files auto-deleted', color: 'from-emerald-500 to-teal-500' },
   { icon: Zap, title: 'Lightning Fast', desc: 'Async processing with real-time progress', color: 'from-rose-500 to-red-500' },
@@ -34,7 +34,7 @@ const stats = [
 export function LandingPage() {
   return (
     <div className="relative overflow-hidden">
-      {/* ── Hero Section ──────────────────────────────────────── */}
+      {/* â”€â”€ Hero Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="relative min-h-screen flex items-center justify-center gradient-bg pt-16">
         {/* Gradient orbs */}
         <div className="gradient-orb w-96 h-96 bg-primary-500/30 -top-20 -left-20" />
@@ -101,7 +101,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── Features Section ─────────────────────────────────── */}
+      {/* â”€â”€ Features Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-24 relative" id="features">
         <div className="max-w-7xl mx-auto px-4">
           <motion.div
@@ -140,7 +140,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── How It Works ─────────────────────────────────────── */}
+      {/* â”€â”€ How It Works â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-24 bg-[hsl(var(--card))]">
         <div className="max-w-5xl mx-auto px-4">
           <motion.div
@@ -174,7 +174,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── CTA Section ──────────────────────────────────────── */}
+      {/* â”€â”€ CTA Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <section className="py-24 relative">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <motion.div
@@ -187,14 +187,14 @@ export function LandingPage() {
               Ready to Start Converting?
             </h2>
             <p className="text-lg text-[hsl(var(--muted-foreground))] mb-8 max-w-lg mx-auto">
-              Join thousands of users who trust CloudConvert for their file conversion needs.
+              Join thousands of users who trust morphixert for their file conversion needs.
             </p>
             <Link
               to="/register"
               className="inline-flex items-center px-8 py-4 rounded-2xl text-lg font-semibold bg-gradient-to-r from-primary-500 to-purple-600 text-white hover:opacity-90 transition-all shadow-2xl shadow-primary-500/30"
               id="bottom-cta"
             >
-              Get Started — It&apos;s Free
+              Get Started â€” It&apos;s Free
               <ArrowRight className="w-5 h-5 ml-2" />
             </Link>
 
@@ -207,7 +207,7 @@ export function LandingPage() {
         </div>
       </section>
 
-      {/* ── Footer ───────────────────────────────────────────── */}
+      {/* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */}
       <footer className="py-12 border-t border-[hsl(var(--border))]">
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -215,10 +215,10 @@ export function LandingPage() {
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-500 to-purple-600 flex items-center justify-center">
                 <Zap className="w-4 h-4 text-white" />
               </div>
-              <span className="font-bold">CloudConvert</span>
+              <span className="font-bold">morphixert</span>
             </div>
             <p className="text-sm text-[hsl(var(--muted-foreground))]">
-              © {new Date().getFullYear()} Cloud File Converter. Built with ❤️
+              Â© {new Date().getFullYear()} Morphix. Built with â¤ï¸
             </p>
           </div>
         </div>

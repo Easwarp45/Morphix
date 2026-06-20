@@ -1,4 +1,4 @@
-"""WSGI config for Cloud File Converter."""
+﻿"""WSGI config for Morphix."""
 
 import os
 

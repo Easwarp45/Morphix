@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Custom Permissions
+﻿"""
+Morphix â€” Custom Permissions
 """
 
 from rest_framework.permissions import BasePermission

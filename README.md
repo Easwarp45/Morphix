@@ -1,8 +1,8 @@
-# Cloud File Converter (Production-Grade SaaS)
+﻿# Morphix (Production-Grade SaaS)
 
 <div align="center">
 
-![Cloud File Converter Version](https://img.shields.io/badge/Version-1.1.0-6366f1?style=for-the-badge&logo=files&logoColor=white)
+![Morphix Version](https://img.shields.io/badge/Version-1.1.0-6366f1?style=for-the-badge&logo=files&logoColor=white)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=flat-square&logo=python)
 ![Django](https://img.shields.io/badge/Django-5.x-092E20?style=flat-square&logo=django)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react)
@@ -11,20 +11,20 @@
 
 **A 100% Free, High-Performance, Cloud-Native File Conversion & Processing Platform.**
 
-Convert documents, images, and archives, extract text with OCR, and summarize files with AI — instantly in the cloud.
+Convert documents, images, and archives, extract text with OCR, and summarize files with AI â€” instantly in the cloud.
 
 </div>
 
 ---
 
-## 🏗️ Architecture Diagrams
+## ðŸ—ï¸ Architecture Diagrams
 
 ### A. System Architecture
 Comprehensive view of system boundary connections, showing secure ingress, ASGI/WSGI backend separation, task priority queues, and backing storage.
 
 ```mermaid
 graph TB
-    subgraph "Frontend Client — PWA"
+    subgraph "Frontend Client â€” PWA"
         FE["React + Vite + TS (PWA)"]
         WS_Client["WebSocket Client"]
     end
@@ -191,7 +191,7 @@ graph LR
 
 ---
 
-## ✨ Feature Showcase
+## âœ¨ Feature Showcase
 
 ### 1. Seamless Guest Mode
 - **Zero Registration**: Drag-and-drop files to convert immediately.
@@ -211,23 +211,23 @@ graph LR
 
 ---
 
-## 📡 API Reference Overview
+## ðŸ“¡ API Reference Overview
 
 ### Health Checks
-- `GET /api/v1/health/` — Validates DB, Redis Cache, and S3 Storage connection status (responds with 200 OK or 503 Service Unavailable).
+- `GET /api/v1/health/` â€” Validates DB, Redis Cache, and S3 Storage connection status (responds with 200 OK or 503 Service Unavailable).
 
 ### Authentication
-- `POST /api/v1/auth/guest/` — Provision a temporary guest account.
-- `POST /api/v1/auth/register/` / `login/` — Standard email registration and login (returns simple JWTs).
+- `POST /api/v1/auth/guest/` â€” Provision a temporary guest account.
+- `POST /api/v1/auth/register/` / `login/` â€” Standard email registration and login (returns simple JWTs).
 
 ### Conversions & Sharing
-- `POST /api/v1/conversions/batch/` — Start concurrent conversions.
-- `POST /api/v1/conversions/<uuid:id>/share/` — Generate 24-hour cryptographic share links.
-- `GET /api/v1/conversions/share/<str:token>/` — Public, unauthenticated file detail/download.
+- `POST /api/v1/conversions/batch/` â€” Start concurrent conversions.
+- `POST /api/v1/conversions/<uuid:id>/share/` â€” Generate 24-hour cryptographic share links.
+- `GET /api/v1/conversions/share/<str:token>/` â€” Public, unauthenticated file detail/download.
 
 ---
 
-## 📊 Performance Metrics
+## ðŸ“Š Performance Metrics
 
 We executed concurrent conversion load tests (Image -> JPG, Text -> PDF, ZIP Creation) using our benchmark suite:
 
@@ -241,7 +241,7 @@ We executed concurrent conversion load tests (Image -> JPG, Text -> PDF, ZIP Cre
 
 ---
 
-## 🔒 Security Hardening & Observability
+## ðŸ”’ Security Hardening & Observability
 
 - **Sentry Error Tracking**: Full event capturing and profiling in production settings.
 - **Structured Logging**: Log entries formatted as JSON structures using `python-json-logger`.
@@ -250,12 +250,12 @@ We executed concurrent conversion load tests (Image -> JPG, Text -> PDF, ZIP Cre
 
 ---
 
-## 🚀 Quick Start (Local Docker Dev)
+## ðŸš€ Quick Start (Local Docker Dev)
 
 1. Clone repo & create env file:
    ```bash
    git clone <repo-url>
-   cd cloud-file-converter
+   cd morphix
    cp .env.example .env
    ```
 2. Launch Docker container stack:
@@ -266,7 +266,7 @@ We executed concurrent conversion load tests (Image -> JPG, Text -> PDF, ZIP Cre
 
 ---
 
-## 📂 Further Reading & Portfolio Resources
+## ðŸ“‚ Further Reading & Portfolio Resources
 
-- **[Portfolio Case Study](file:///docs/portfolio_case_study.md)** — Architectural decisions, engineering challenges, and structural trade-offs.
-- **[AWS Production Deployment Guide](file:///docs/deployment_guide.md)** — Complete Nginx reverse proxy configs, Supervisor daemon scripts, and CloudFront caching policies.
+- **[Portfolio Case Study](file:///docs/portfolio_case_study.md)** â€” Architectural decisions, engineering challenges, and structural trade-offs.
+- **[AWS Production Deployment Guide](file:///docs/deployment_guide.md)** â€” Complete Nginx reverse proxy configs, Supervisor daemon scripts, and CloudFront caching policies.

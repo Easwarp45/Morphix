@@ -1,4 +1,4 @@
-# Case Study: Cloud File Converter Hardening
+﻿# Case Study: Morphix Hardening
 
 A detailed breakdown of technical decisions, scaling, and architectural choices made to build a production-ready, portfolio-grade cloud conversion platform.
 
@@ -6,7 +6,7 @@ A detailed breakdown of technical decisions, scaling, and architectural choices 
 
 ## 1. Executive Summary
 
-**Cloud File Converter** is a high-performance utility SaaS designed for rapid, on-demand conversion of documents, images, archives, text extraction (OCR), and document summarization. The platform prioritizes seamless guest access and system-level protection against API resource abuse.
+**Morphix** is a high-performance utility SaaS designed for rapid, on-demand conversion of documents, images, archives, text extraction (OCR), and document summarization. The platform prioritizes seamless guest access and system-level protection against API resource abuse.
 
 ---
 

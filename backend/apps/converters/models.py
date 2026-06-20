@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Conversion Model
+﻿"""
+Morphix â€” Conversion Model
 """
 
 import uuid
@@ -20,15 +20,15 @@ class Conversion(models.Model):
 
     class ConversionType(models.TextChoices):
         # Documents
-        PDF_TO_DOCX = "pdf_to_docx", "PDF → DOCX"
-        DOCX_TO_PDF = "docx_to_pdf", "DOCX → PDF"
-        TXT_TO_PDF = "txt_to_pdf", "TXT → PDF"
-        PDF_TO_TXT = "pdf_to_txt", "PDF → TXT"
+        PDF_TO_DOCX = "pdf_to_docx", "PDF â†’ DOCX"
+        DOCX_TO_PDF = "docx_to_pdf", "DOCX â†’ PDF"
+        TXT_TO_PDF = "txt_to_pdf", "TXT â†’ PDF"
+        PDF_TO_TXT = "pdf_to_txt", "PDF â†’ TXT"
         # Images
-        PNG_TO_JPG = "png_to_jpg", "PNG → JPG"
-        JPG_TO_PNG = "jpg_to_png", "JPG → PNG"
-        WEBP_TO_PNG = "webp_to_png", "WEBP → PNG"
-        PNG_TO_WEBP = "png_to_webp", "PNG → WEBP"
+        PNG_TO_JPG = "png_to_jpg", "PNG â†’ JPG"
+        JPG_TO_PNG = "jpg_to_png", "JPG â†’ PNG"
+        WEBP_TO_PNG = "webp_to_png", "WEBP â†’ PNG"
+        PNG_TO_WEBP = "png_to_webp", "PNG â†’ WEBP"
         # Compression
         IMAGE_COMPRESS = "image_compress", "Image Compression"
         PDF_COMPRESS = "pdf_compress", "PDF Compression"
@@ -93,7 +93,7 @@ class Conversion(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.source_format} → {self.target_format} ({self.status})"
+        return f"{self.source_format} â†’ {self.target_format} ({self.status})"
 
     @property
     def output_file_size_mb(self):

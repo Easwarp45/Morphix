@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Converter Engine Tests
+﻿"""
+Morphix â€” Converter Engine Tests
 """
 
 import io
@@ -108,7 +108,7 @@ class TestDocumentConverters:
         assert result[:4] == b"%PDF"  # PDF magic bytes
 
     def test_pdf_to_txt_roundtrip(self):
-        """Convert TXT → PDF → TXT and verify text is preserved."""
+        """Convert TXT â†’ PDF â†’ TXT and verify text is preserved."""
         txt_converter = TXTToPDFConverter()
         pdf_bytes, _ = txt_converter.convert(b"Hello World")
 

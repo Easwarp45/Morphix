@@ -1,5 +1,5 @@
-/* =============================================================================
-   Converter Page — Advanced Multi-file Drag & Drop, Previews, Batch Operations & WebSockets
+﻿/* =============================================================================
+   Converter Page â€” Advanced Multi-file Drag & Drop, Previews, Batch Operations & WebSockets
    ============================================================================= */
 
 import { useState, useCallback, useEffect } from 'react';
@@ -313,7 +313,7 @@ export function ConverterPage() {
   return (
     <div className="space-y-6">
       <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
-        <h1 className="text-4xl font-extrabold tracking-tight mb-2">Cloud File Converter</h1>
+        <h1 className="text-4xl font-extrabold tracking-tight mb-2">Morphix</h1>
         <p className="text-[hsl(var(--muted-foreground))]">
           100% Free SaaS. Convert, extract text (OCR), and summarize files securely.
           <span className="ml-1 text-primary-500 font-semibold">
@@ -361,7 +361,7 @@ export function ConverterPage() {
                       {isDragActive ? 'Release to upload!' : 'Drag & drop files here'}
                     </p>
                     <p className="text-sm text-[hsl(var(--muted-foreground))]">
-                      or click to upload. Max size: {maxFileSizeMB}MB · Supports PDF, DOCX, TXT, Images, ZIP
+                      or click to upload. Max size: {maxFileSizeMB}MB Â· Supports PDF, DOCX, TXT, Images, ZIP
                     </p>
                   </>
                 )}
@@ -533,19 +533,19 @@ export function ConverterPage() {
                       onClick={() => handleApplyToAll('png_to_webp')}
                       className="px-2.5 py-1.5 bg-white dark:bg-black border border-[hsl(var(--border))] hover:border-primary-500/50 rounded-lg text-[10px] font-semibold transition-colors"
                     >
-                      All Images → WEBP
+                      All Images â†’ WEBP
                     </button>
                     <button
                       onClick={() => handleApplyToAll('pdf_to_txt')}
                       className="px-2.5 py-1.5 bg-white dark:bg-black border border-[hsl(var(--border))] hover:border-primary-500/50 rounded-lg text-[10px] font-semibold transition-colors"
                     >
-                      All PDFs → TXT
+                      All PDFs â†’ TXT
                     </button>
                     <button
                       onClick={() => handleApplyToAll('ai_summarize')}
                       className="px-2.5 py-1.5 bg-white dark:bg-black border border-[hsl(var(--border))] hover:border-primary-500/50 rounded-lg text-[10px] font-semibold transition-colors"
                     >
-                      All Docs → Summarize
+                      All Docs â†’ Summarize
                     </button>
                   </div>
                 </div>

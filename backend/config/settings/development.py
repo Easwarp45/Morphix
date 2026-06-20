@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Development Settings
+﻿"""
+Morphix â€” Development Settings
 """
 
 from .base import *  # noqa: F401, F403
@@ -18,7 +18,7 @@ REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = (  # noqa: F405
     "rest_framework.renderers.BrowsableAPIRenderer",
 )
 
-# Email backend — console output for dev
+# Email backend â€” console output for dev
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # Relax throttling for development

@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Conversion Engine
+﻿"""
+Morphix â€” Conversion Engine
 
 Contains all file conversion implementations using a strategy pattern.
 """
@@ -44,7 +44,7 @@ class PNGToJPGConverter(BaseConverter):
 
         img = Image.open(io.BytesIO(input_bytes))
         if img.mode in ("RGBA", "LA", "P"):
-            # JPG doesn't support transparency — composite on white background
+            # JPG doesn't support transparency â€” composite on white background
             background = Image.new("RGB", img.size, (255, 255, 255))
             if img.mode == "P":
                 img = img.convert("RGBA")
@@ -386,7 +386,7 @@ class ImageToTextOCRConverter(BaseConverter):
             try:
                 img = Image.open(io.BytesIO(input_bytes))
                 text = (
-                    "--- Cloud File Converter OCR Mock Fallback ---\n"
+                    "--- Morphix OCR Mock Fallback ---\n"
                     f"Image Format: {img.format}\n"
                     f"Image Dimensions: {img.width}x{img.height}\n"
                     f"Image Mode: {img.mode}\n"
@@ -423,7 +423,7 @@ class PDFToTextOCRConverter(BaseConverter):
                 except Exception:
                     page_text = page.get_text()
                     if not page_text.strip():
-                        page_text = f"[Scanned page {page_num + 1} — OCR binary not found to extract text]"
+                        page_text = f"[Scanned page {page_num + 1} â€” OCR binary not found to extract text]"
 
                 text_parts.append(f"--- Page {page_num + 1} ---\n")
                 text_parts.append(page_text)
@@ -569,44 +569,44 @@ def get_converter(conversion_type: str) -> BaseConverter:
     return converter
 
 
-# Mapping of source extension → supported target conversion types
+# Mapping of source extension â†’ supported target conversion types
 FORMAT_MAPPING: dict[str, list[dict]] = {
     ".pdf": [
-        {"type": "pdf_to_docx", "target": ".docx", "label": "PDF → DOCX"},
-        {"type": "pdf_to_txt", "target": ".txt", "label": "PDF → TXT"},
+        {"type": "pdf_to_docx", "target": ".docx", "label": "PDF â†’ DOCX"},
+        {"type": "pdf_to_txt", "target": ".txt", "label": "PDF â†’ TXT"},
         {"type": "pdf_ocr_to_txt", "target": ".txt", "label": "Extract Scanned Text (OCR)"},
         {"type": "ai_summarize", "target": ".txt", "label": "Summarize Document (AI)"},
         {"type": "pdf_compress", "target": ".pdf", "label": "Compress PDF"},
     ],
     ".docx": [
-        {"type": "docx_to_pdf", "target": ".pdf", "label": "DOCX → PDF"},
+        {"type": "docx_to_pdf", "target": ".pdf", "label": "DOCX â†’ PDF"},
         {"type": "ai_summarize", "target": ".txt", "label": "Summarize Document (AI)"},
     ],
     ".txt": [
-        {"type": "txt_to_pdf", "target": ".pdf", "label": "TXT → PDF"},
+        {"type": "txt_to_pdf", "target": ".pdf", "label": "TXT â†’ PDF"},
         {"type": "ai_summarize", "target": ".txt", "label": "Summarize Document (AI)"},
     ],
     ".png": [
-        {"type": "png_to_jpg", "target": ".jpg", "label": "PNG → JPG"},
-        {"type": "png_to_webp", "target": ".webp", "label": "PNG → WEBP"},
+        {"type": "png_to_jpg", "target": ".jpg", "label": "PNG â†’ JPG"},
+        {"type": "png_to_webp", "target": ".webp", "label": "PNG â†’ WEBP"},
         {"type": "image_ocr_to_txt", "target": ".txt", "label": "Extract Text (OCR)"},
         {"type": "image_compress", "target": ".jpg", "label": "Compress Image"},
         {"type": "zip_create", "target": ".zip", "label": "Create ZIP"},
     ],
     ".jpg": [
-        {"type": "jpg_to_png", "target": ".png", "label": "JPG → PNG"},
+        {"type": "jpg_to_png", "target": ".png", "label": "JPG â†’ PNG"},
         {"type": "image_ocr_to_txt", "target": ".txt", "label": "Extract Text (OCR)"},
         {"type": "image_compress", "target": ".jpg", "label": "Compress Image"},
         {"type": "zip_create", "target": ".zip", "label": "Create ZIP"},
     ],
     ".jpeg": [
-        {"type": "jpg_to_png", "target": ".png", "label": "JPG → PNG"},
+        {"type": "jpg_to_png", "target": ".png", "label": "JPG â†’ PNG"},
         {"type": "image_ocr_to_txt", "target": ".txt", "label": "Extract Text (OCR)"},
         {"type": "image_compress", "target": ".jpg", "label": "Compress Image"},
         {"type": "zip_create", "target": ".zip", "label": "Create ZIP"},
     ],
     ".webp": [
-        {"type": "webp_to_png", "target": ".png", "label": "WEBP → PNG"},
+        {"type": "webp_to_png", "target": ".png", "label": "WEBP â†’ PNG"},
         {"type": "image_ocr_to_txt", "target": ".txt", "label": "Extract Text (OCR)"},
         {"type": "image_compress", "target": ".jpg", "label": "Compress Image"},
     ],

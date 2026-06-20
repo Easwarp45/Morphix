@@ -1,14 +1,14 @@
-# Cloud File Converter — Resume Bullets & LinkedIn Content
+﻿# Morphix â€” Resume Bullets & LinkedIn Content
 
 ## ATS-Optimized Resume Bullets
 
-Use these under a "Projects" section on your resume. Tailor 3–5 bullets per job application.
+Use these under a "Projects" section on your resume. Tailor 3â€“5 bullets per job application.
 
 ---
 
-### Option A — Engineering Focus (for Software Engineer / Backend Engineer roles)
+### Option A â€” Engineering Focus (for Software Engineer / Backend Engineer roles)
 
-- **Architected and deployed** a full-stack cloud SaaS platform (Cloud File Converter) supporting 20+ file format conversions with async task queuing via Celery + Redis, achieving sub-3s p95 conversion latency
+- **Architected and deployed** a full-stack cloud SaaS platform (Morphix) supporting 20+ file format conversions with async task queuing via Celery + Redis, achieving sub-3s p95 conversion latency
 - **Designed RESTful API** with Django REST Framework serving 15+ endpoints with JWT authentication, Google OAuth 2.0, role-based access, and OpenAPI 3.0 documentation
 - **Integrated OCR pipeline** using Tesseract for image-to-text extraction and scanned PDF processing; added AI document summarization via Google Gemini API with graceful local fallback
 - **Implemented real-time updates** using Django Channels (WebSockets) for live conversion progress streaming to connected clients
@@ -18,7 +18,7 @@ Use these under a "Projects" section on your resume. Tailor 3–5 bullets per jo
 
 ---
 
-### Option B — Cloud / DevOps Focus (for Cloud Engineer / DevOps roles)
+### Option B â€” Cloud / DevOps Focus (for Cloud Engineer / DevOps roles)
 
 - **Designed cloud-native architecture** on AWS using S3 for object storage with lifecycle policies, CloudFront for global CDN delivery, EC2 for compute, and RDS PostgreSQL for data persistence
 - **Containerized full application stack** using Docker Compose with 6 services (Django, Celery, Redis, PostgreSQL, MinIO, Nginx) and production-ready Docker images
@@ -29,10 +29,10 @@ Use these under a "Projects" section on your resume. Tailor 3–5 bullets per jo
 
 ---
 
-### Option C — Full-Stack Focus (for Full-Stack / Frontend Engineer roles)
+### Option C â€” Full-Stack Focus (for Full-Stack / Frontend Engineer roles)
 
 - **Built responsive React 18 frontend** with TypeScript, React Query, and Zustand for state management; implemented drag-and-drop multi-file upload with real-time WebSocket progress indicators
-- **Developed PWA** with service worker, offline capability, and installable manifest — achieving 90+ Lighthouse scores for performance, accessibility, and SEO
+- **Developed PWA** with service worker, offline capability, and installable manifest â€” achieving 90+ Lighthouse scores for performance, accessibility, and SEO
 - **Implemented advanced UX features**: file preview before conversion, batch workflow management, conversion history with analytics, shareable download links, and dark/light theme support
 - **Designed REST API client layer** with Axios interceptors for JWT token refresh, error normalization, and request deduplication
 - **Ensured WCAG 2.1 accessibility compliance** with proper ARIA labels, keyboard navigation, focus management, and screen-reader compatibility
@@ -42,34 +42,34 @@ Use these under a "Projects" section on your resume. Tailor 3–5 bullets per jo
 ## LinkedIn Project Post (Copy-Paste Ready)
 
 ```
-🚀 Just shipped Cloud File Converter — a production-grade SaaS platform I built from scratch to showcase engineering excellence.
+ðŸš€ Just shipped Morphix â€” a production-grade SaaS platform I built from scratch to showcase engineering excellence.
 
 Here's what's under the hood:
 
-🔧 Technical Stack:
-• Django + DRF backend with async Celery task queue
-• React 18 + TypeScript frontend with real-time WebSockets
-• AWS S3 + CloudFront CDN for global file delivery
-• OCR via Tesseract, AI summarization via Google Gemini
-• Docker, Nginx, GitHub Actions CI/CD
+ðŸ”§ Technical Stack:
+â€¢ Django + DRF backend with async Celery task queue
+â€¢ React 18 + TypeScript frontend with real-time WebSockets
+â€¢ AWS S3 + CloudFront CDN for global file delivery
+â€¢ OCR via Tesseract, AI summarization via Google Gemini
+â€¢ Docker, Nginx, GitHub Actions CI/CD
 
-📊 Scale it handles:
-• 1,000+ concurrent file conversions (benchmarked)
-• 20+ supported format conversions
-• Sub-3s p95 conversion latency
-• 42+ tests with 80%+ coverage
+ðŸ“Š Scale it handles:
+â€¢ 1,000+ concurrent file conversions (benchmarked)
+â€¢ 20+ supported format conversions
+â€¢ Sub-3s p95 conversion latency
+â€¢ 42+ tests with 80%+ coverage
 
-🎯 Features I'm proud of:
-✅ Guest mode (no sign-up required)
-✅ Real-time progress via WebSockets
-✅ OCR for scanned documents
-✅ AI document summarization
-✅ Shareable download links
-✅ PWA installable app
-✅ Full audit trail & analytics
+ðŸŽ¯ Features I'm proud of:
+âœ… Guest mode (no sign-up required)
+âœ… Real-time progress via WebSockets
+âœ… OCR for scanned documents
+âœ… AI document summarization
+âœ… Shareable download links
+âœ… PWA installable app
+âœ… Full audit trail & analytics
 
-💡 What I learned:
-Building this forced me to think about scalability from day one — async task queues, CDN caching strategies, rate limiting, and production observability. It's one thing to build features; it's another to build them in a way that won't break at 10x load.
+ðŸ’¡ What I learned:
+Building this forced me to think about scalability from day one â€” async task queues, CDN caching strategies, rate limiting, and production observability. It's one thing to build features; it's another to build them in a way that won't break at 10x load.
 
 Full code, architecture diagrams, and deployment guides on GitHub: [YOUR GITHUB LINK]
 
@@ -81,22 +81,22 @@ Full code, architecture diagrams, and deployment guides on GitHub: [YOUR GITHUB 
 ## GitHub Profile README Snippet
 
 ```markdown
-### 🔥 Featured Project: Cloud File Converter
+### ðŸ”¥ Featured Project: Morphix
 
 > A production-grade cloud SaaS platform for file format conversions
 
-[![Stars](https://img.shields.io/github/stars/YOUR_USERNAME/cloud-file-converter?style=social)](https://github.com/YOUR_USERNAME/cloud-file-converter)
+[![Stars](https://img.shields.io/github/stars/YOUR_USERNAME/morphix?style=social)](https://github.com/YOUR_USERNAME/morphix)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-**Tech**: Django · DRF · Celery · Redis · React · TypeScript · AWS S3 · PostgreSQL · Docker · WebSockets · Tesseract OCR · Gemini AI
+**Tech**: Django Â· DRF Â· Celery Â· Redis Â· React Â· TypeScript Â· AWS S3 Â· PostgreSQL Â· Docker Â· WebSockets Â· Tesseract OCR Â· Gemini AI
 
-- 🔄 20+ file format conversions (PDF, DOCX, MP4, MP3, PNG, and more)
-- ⚡ Real-time progress via WebSockets
-- 🤖 AI document summarization (Google Gemini)
-- 📱 PWA with offline support
-- 🚀 1,000+ concurrent conversions benchmarked
+- ðŸ”„ 20+ file format conversions (PDF, DOCX, MP4, MP3, PNG, and more)
+- âš¡ Real-time progress via WebSockets
+- ðŸ¤– AI document summarization (Google Gemini)
+- ðŸ“± PWA with offline support
+- ðŸš€ 1,000+ concurrent conversions benchmarked
 
-[View Project →](https://github.com/YOUR_USERNAME/cloud-file-converter) | [Live Demo →](https://cloudfileconverter.com)
+[View Project â†’](https://github.com/YOUR_USERNAME/morphix) | [Live Demo â†’](https://morphix.com)
 ```
 
 ---
@@ -104,7 +104,7 @@ Full code, architecture diagrams, and deployment guides on GitHub: [YOUR GITHUB 
 ## Project Description (Portfolio Website)
 
 ```
-Cloud File Converter
+Morphix
 
 A free, production-grade file conversion SaaS built to demonstrate scalable cloud architecture, async task processing, and modern full-stack development.
 
@@ -113,11 +113,11 @@ Role: Solo Full-Stack Engineer & Architect
 Duration: 3 months
 
 Technologies:
-• Backend: Python, Django, Django REST Framework, Celery, PostgreSQL
-• Frontend: React 18, TypeScript, React Query, Zustand
-• Infrastructure: AWS S3, CloudFront, Docker, Nginx, GitHub Actions
-• AI/ML: Google Gemini API, Tesseract OCR
-• Real-time: Django Channels, WebSockets
+â€¢ Backend: Python, Django, Django REST Framework, Celery, PostgreSQL
+â€¢ Frontend: React 18, TypeScript, React Query, Zustand
+â€¢ Infrastructure: AWS S3, CloudFront, Docker, Nginx, GitHub Actions
+â€¢ AI/ML: Google Gemini API, Tesseract OCR
+â€¢ Real-time: Django Channels, WebSockets
 
 Key Challenges Solved:
 1. Async conversion queuing: Designed a Celery-based task queue to handle concurrent conversions without blocking the API
@@ -126,7 +126,7 @@ Key Challenges Solved:
 4. Scalability: Benchmarked 1,000 concurrent conversions; identified and resolved bottlenecks in worker concurrency
 
 Impact:
-• Sub-3s p95 conversion latency at scale
-• 80%+ test coverage with 42 unit tests
-• Production-ready with full observability (Sentry, structured logs, health checks)
+â€¢ Sub-3s p95 conversion latency at scale
+â€¢ 80%+ test coverage with 42 unit tests
+â€¢ Production-ready with full observability (Sentry, structured logs, health checks)
 ```

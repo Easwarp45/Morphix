@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — E2E Tests: File Upload & Conversion
+﻿"""
+Morphix â€” E2E Tests: File Upload & Conversion
 ===========================================================
 Tests file upload, format conversion, batch conversion, download,
 shareable links, and conversion history.
@@ -13,9 +13,9 @@ import requests
 
 BASE_URL = "http://localhost:8000/api/v1"
 
-# ── Sample test files (in-memory) ──────────────────────────────────────────────
+# â”€â”€ Sample test files (in-memory) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-def make_text_file(content: str = "Hello, Cloud File Converter!\n" * 50) -> io.BytesIO:
+def make_text_file(content: str = "Hello, Morphix!\n" * 50) -> io.BytesIO:
     return io.BytesIO(content.encode())
 
 
@@ -32,14 +32,14 @@ def make_minimal_pdf() -> io.BytesIO:
     return io.BytesIO(pdf_bytes)
 
 
-# ── Fixtures ───────────────────────────────────────────────────────────────────
+# â”€â”€ Fixtures â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 @pytest.fixture(scope="module")
 def auth_headers():
     """Get auth tokens for test user."""
     # First try to register, then login
     creds = {
-        "email": "upload_e2e@cloudconv.test",
+        "email": "upload_e2e@morphix.test",
         "password": "Upload#E2eTest2024!",
         "first_name": "Upload",
         "last_name": "Tester",
@@ -53,11 +53,11 @@ def auth_headers():
     return {"Authorization": f"Bearer {token}"}
 
 
-# ── Upload Tests ────────────────────────────────────────────────────────────────
+# â”€â”€ Upload Tests â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class TestFileUpload:
     def test_upload_text_file(self, auth_headers):
-        """POST /api/v1/files/ — upload a .txt file, returns 201."""
+        """POST /api/v1/files/ â€” upload a .txt file, returns 201."""
         response = requests.post(
             f"{BASE_URL}/files/",
             headers={k: v for k, v in auth_headers.items()},
@@ -69,7 +69,7 @@ class TestFileUpload:
         assert data.get("original_filename") == "test.txt" or "name" in data
 
     def test_upload_pdf_file(self, auth_headers):
-        """POST /api/v1/files/ — upload a .pdf file."""
+        """POST /api/v1/files/ â€” upload a .pdf file."""
         response = requests.post(
             f"{BASE_URL}/files/",
             headers={k: v for k, v in auth_headers.items()},
@@ -78,7 +78,7 @@ class TestFileUpload:
         assert response.status_code == 201, f"PDF upload failed: {response.text}"
 
     def test_upload_requires_auth(self):
-        """POST /api/v1/files/ — returns 401 without token."""
+        """POST /api/v1/files/ â€” returns 401 without token."""
         response = requests.post(
             f"{BASE_URL}/files/",
             files={"file": ("test.txt", make_text_file(), "text/plain")},
@@ -86,7 +86,7 @@ class TestFileUpload:
         assert response.status_code == 401
 
     def test_upload_too_large_file(self, auth_headers):
-        """POST /api/v1/files/ — file exceeding limit should be rejected."""
+        """POST /api/v1/files/ â€” file exceeding limit should be rejected."""
         big_file = io.BytesIO(b"X" * (60 * 1024 * 1024))  # 60 MB
         response = requests.post(
             f"{BASE_URL}/files/",
@@ -97,7 +97,7 @@ class TestFileUpload:
         assert response.status_code in (400, 413), f"Expected rejection, got {response.status_code}"
 
     def test_list_files(self, auth_headers):
-        """GET /api/v1/files/ — returns paginated list of user's files."""
+        """GET /api/v1/files/ â€” returns paginated list of user's files."""
         response = requests.get(f"{BASE_URL}/files/", headers=auth_headers)
         assert response.status_code == 200
         data = response.json()
@@ -105,7 +105,7 @@ class TestFileUpload:
         assert isinstance(data, (list, dict))
 
 
-# ── Conversion Tests ────────────────────────────────────────────────────────────
+# â”€â”€ Conversion Tests â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class TestConversion:
     @pytest.fixture(scope="class")
@@ -120,7 +120,7 @@ class TestConversion:
         return response.json()["id"]
 
     def test_start_conversion(self, auth_headers, uploaded_file_id):
-        """POST /api/v1/conversions/ — start a conversion job."""
+        """POST /api/v1/conversions/ â€” start a conversion job."""
         response = requests.post(
             f"{BASE_URL}/conversions/",
             headers=auth_headers,
@@ -134,7 +134,7 @@ class TestConversion:
         assert "id" in data or "task_id" in data or "job_id" in data
 
     def test_conversion_status(self, auth_headers, uploaded_file_id):
-        """POST then GET conversion — status should be pending/processing/completed."""
+        """POST then GET conversion â€” status should be pending/processing/completed."""
         # Start conversion
         start_resp = requests.post(
             f"{BASE_URL}/conversions/",
@@ -162,12 +162,12 @@ class TestConversion:
         assert status_resp.status_code == 200
 
     def test_list_conversions(self, auth_headers):
-        """GET /api/v1/conversions/ — returns user's conversion history."""
+        """GET /api/v1/conversions/ â€” returns user's conversion history."""
         response = requests.get(f"{BASE_URL}/conversions/", headers=auth_headers)
         assert response.status_code == 200
 
 
-# ── Guest Conversion ────────────────────────────────────────────────────────────
+# â”€â”€ Guest Conversion â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class TestGuestConversion:
     def test_guest_upload_within_limit(self):
@@ -181,7 +181,7 @@ class TestGuestConversion:
         assert response.status_code in (200, 201, 404)
 
 
-# ── Shareable Links ─────────────────────────────────────────────────────────────
+# â”€â”€ Shareable Links â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class TestShareableLinks:
     def test_create_shareable_link(self, auth_headers):

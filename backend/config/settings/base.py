@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Base Django Settings
+﻿"""
+Morphix â€” Base Django Settings
 
 Shared settings for all environments.
 """
@@ -118,7 +118,7 @@ DATABASES = {
     "default": dj_database_url.config(
         default=config(
             "DATABASE_URL",
-            default="postgres://cloudconv:cloudconv@localhost:5432/cloudconv",
+            default="postgres://morphix:morphix@localhost:5432/morphix",
         ),
         conn_max_age=600,
         conn_health_checks=True,
@@ -234,7 +234,7 @@ REST_AUTH = {
 # DRF Spectacular (OpenAPI / Swagger)
 # =============================================================================
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Cloud File Converter API",
+    "TITLE": "Morphix API",
     "DESCRIPTION": "Production-grade cloud file conversion platform API",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
@@ -263,7 +263,7 @@ MEDIA_ROOT = BASE_DIR / "media"
 # =============================================================================
 AWS_ACCESS_KEY_ID = config("AWS_ACCESS_KEY_ID", default="minioadmin")
 AWS_SECRET_ACCESS_KEY = config("AWS_SECRET_ACCESS_KEY", default="minioadmin")
-AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default="cloud-file-converter")
+AWS_STORAGE_BUCKET_NAME = config("AWS_STORAGE_BUCKET_NAME", default="morphix")
 AWS_S3_ENDPOINT_URL = config("AWS_S3_ENDPOINT_URL", default="http://localhost:9000")
 AWS_S3_REGION_NAME = config("AWS_S3_REGION_NAME", default="us-east-1")
 AWS_DEFAULT_ACL = config("AWS_DEFAULT_ACL", default="private")

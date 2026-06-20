@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — E2E Tests: Shareable Download Links
+﻿"""
+Morphix â€” E2E Tests: Shareable Download Links
 ==========================================================
 Tests creation, retrieval, expiry, and download of shareable links.
 """
@@ -15,7 +15,7 @@ BASE_URL = "http://localhost:8000/api/v1"
 @pytest.fixture(scope="module")
 def auth_headers():
     creds = {
-        "email": "share_e2e@cloudconv.test",
+        "email": "share_e2e@morphix.test",
         "password": "Share#E2eTest2024!",
         "first_name": "Share",
         "last_name": "Tester",
@@ -44,7 +44,7 @@ def uploaded_file(auth_headers):
 
 class TestShareableLinks:
     def test_create_shareable_link(self, auth_headers, uploaded_file):
-        """POST /api/v1/files/{id}/share/ — creates a shareable link."""
+        """POST /api/v1/files/{id}/share/ â€” creates a shareable link."""
         file_id = uploaded_file["id"]
         resp = requests.post(
             f"{BASE_URL}/files/{file_id}/share/",
@@ -89,7 +89,7 @@ class TestShareableLinks:
             f"Shared file not accessible: {download_resp.status_code}"
 
     def test_list_shared_links(self, auth_headers, uploaded_file):
-        """GET /api/v1/files/{id}/shares/ — list of shared links for a file."""
+        """GET /api/v1/files/{id}/shares/ â€” list of shared links for a file."""
         file_id = uploaded_file["id"]
         resp = requests.get(
             f"{BASE_URL}/files/{file_id}/shares/",
@@ -127,7 +127,7 @@ class TestShareableLinks:
         assert delete_resp.status_code in (200, 204, 404)
 
     def test_download_file_authenticated(self, auth_headers, uploaded_file):
-        """GET /api/v1/files/{id}/download/ — authenticated download."""
+        """GET /api/v1/files/{id}/download/ â€” authenticated download."""
         file_id = uploaded_file["id"]
         resp = requests.get(
             f"{BASE_URL}/files/{file_id}/download/",
@@ -138,7 +138,7 @@ class TestShareableLinks:
         assert resp.status_code in (200, 302)
 
     def test_download_requires_auth_or_share_token(self, uploaded_file):
-        """GET /api/v1/files/{id}/download/ — unauthenticated returns 401."""
+        """GET /api/v1/files/{id}/download/ â€” unauthenticated returns 401."""
         file_id = uploaded_file["id"]
         resp = requests.get(
             f"{BASE_URL}/files/{file_id}/download/",

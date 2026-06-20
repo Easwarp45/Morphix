@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Centralized Exception Handling
+﻿"""
+Morphix â€” Centralized Exception Handling
 """
 
 import logging
@@ -100,7 +100,7 @@ def custom_exception_handler(exc, context):
             },
         }
     else:
-        # Unhandled exception — log and return 500
+        # Unhandled exception â€” log and return 500
         logger.exception("Unhandled exception in %s", context.get("view", "unknown"))
         return Response(
             {

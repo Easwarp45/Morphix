@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Standalone Performance Benchmark Suite
+﻿"""
+Morphix â€” Standalone Performance Benchmark Suite
 """
 
 import os
@@ -74,7 +74,7 @@ def generate_png_bytes():
     return buf.getvalue()
 
 def generate_txt_bytes():
-    return b"Cloud File Converter performance benchmark text data. " * 50
+    return b"Morphix performance benchmark text data. " * 50
 
 
 class PerformanceBenchmark:
@@ -186,7 +186,7 @@ def main():
     report_path = report_dir / "benchmark_report.md"
 
     with open(report_path, "w") as f:
-        f.write("# Cloud File Converter — Performance Benchmark Report\n\n")
+        f.write("# Morphix â€” Performance Benchmark Report\n\n")
         f.write(f"Generated at: {time.strftime('%Y-%m-%d %H:%M:%S')} (UTC)\n")
         f.write("This report summarizes the concurrency throughput and latency profiles of the conversion engine.\n\n")
         f.write("## Execution Metrics\n\n")

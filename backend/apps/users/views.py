@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — User Views
+﻿"""
+Morphix â€” User Views
 """
 
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter

@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — User Serializers
+﻿"""
+Morphix â€” User Serializers
 """
 
 from dj_rest_auth.registration.serializers import RegisterSerializer

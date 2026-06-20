@@ -1,6 +1,6 @@
-# Cloud File Converter — AWS Production Deployment Guide
+﻿# Morphix â€” AWS Production Deployment Guide
 
-This guide details the steps to deploy **Cloud File Converter** on AWS for production usage, utilizing **EC2** for compute, **S3** for temp file storage, and **CloudFront** for static asset delivery, SSL termination, and CDN caching.
+This guide details the steps to deploy **Morphix** on AWS for production usage, utilizing **EC2** for compute, **S3** for temp file storage, and **CloudFront** for static asset delivery, SSL termination, and CDN caching.
 
 ---
 
@@ -10,7 +10,7 @@ We use AWS S3 for hosting temporary uploaded files and converted outputs. Due to
 
 ### Create S3 Bucket
 1. Go to AWS S3 Console -> Create Bucket.
-2. Set Name: `prod-cloud-file-converter` (must be unique).
+2. Set Name: `prod-morphix` (must be unique).
 3. Disable **Block all public access** (pre-signed URLs require public read parameters, but bucket assets should remain private by default).
 
 ### Bucket Lifecycle Policy (Abuse Prevention Guard)
@@ -58,8 +58,8 @@ sudo apt install -y python3-pip python3-venv git nginx redis-server tesseract-oc
 
 ### Setup Backend Application env
 ```bash
-git clone <repo-url> /var/www/cloud-file-converter
-cd /var/www/cloud-file-converter
+git clone <repo-url> /var/www/morphix
+cd /var/www/morphix
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r backend/requirements/prod.txt
@@ -71,11 +71,11 @@ pip install -r backend/requirements/prod.txt
 
 Configure Nginx to act as the primary reverse proxy, handling static routes, routing `/api/` to Gunicorn/Daphne, and upgrading `/ws/` connections to WebSockets.
 
-Create `/etc/nginx/sites-available/cloudconv`:
+Create `/etc/nginx/sites-available/morphix`:
 ```nginx
 server {
     listen 80;
-    server_name api.cloudconv.com;
+    server_name api.morphix.com;
 
     # Redirect all HTTP traffic to HTTPS (managed by CloudFront or Certbot SSL)
     return 301 https://$host$request_uri;
@@ -83,10 +83,10 @@ server {
 
 server {
     listen 443 ssl http2;
-    server_name api.cloudconv.com;
+    server_name api.morphix.com;
 
-    ssl_certificate /etc/letsencrypt/live/api.cloudconv.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/api.cloudconv.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/api.morphix.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/api.morphix.com/privkey.pem;
 
     # API Requests
     location /api/v1/ {
@@ -114,7 +114,7 @@ server {
 
 Enable the configuration:
 ```bash
-sudo ln -s /etc/nginx/sites-available/cloudconv /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/morphix /etc/nginx/sites-enabled/
 sudo nginx -t
 sudo systemctl restart nginx
 ```
@@ -129,8 +129,8 @@ We run Daphne (ASGI) and Celery workers using system daemons managed by **Superv
 Create `/etc/supervisor/conf.d/daphne.conf`:
 ```ini
 [program:daphne]
-directory=/var/www/cloud-file-converter/backend
-command=/var/www/cloud-file-converter/.venv/bin/daphne -b 127.0.0.1 -p 8001 config.asgi:application
+directory=/var/www/morphix/backend
+command=/var/www/morphix/.venv/bin/daphne -b 127.0.0.1 -p 8001 config.asgi:application
 user=ubuntu
 autostart=true
 autorestart=true
@@ -142,8 +142,8 @@ stderr_logfile=/var/log/daphne.err.log
 Create `/etc/supervisor/conf.d/celery_workers.conf`:
 ```ini
 [program:celery_default]
-directory=/var/www/cloud-file-converter/backend
-command=/var/www/cloud-file-converter/.venv/bin/celery -A config worker --loglevel=INFO -Q default,priority
+directory=/var/www/morphix/backend
+command=/var/www/morphix/.venv/bin/celery -A config worker --loglevel=INFO -Q default,priority
 user=ubuntu
 autostart=true
 autorestart=true
@@ -151,8 +151,8 @@ stdout_logfile=/var/log/celery_default.log
 stderr_logfile=/var/log/celery_default.err.log
 
 [program:celery_heavy]
-directory=/var/www/cloud-file-converter/backend
-command=/var/www/cloud-file-converter/.venv/bin/celery -A config worker --loglevel=INFO -Q heavy -c 2
+directory=/var/www/morphix/backend
+command=/var/www/morphix/.venv/bin/celery -A config worker --loglevel=INFO -Q heavy -c 2
 user=ubuntu
 autostart=true
 autorestart=true

@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Admin Panel URLs
+﻿"""
+Morphix â€” Admin Panel URLs
 """
 
 from django.urls import path

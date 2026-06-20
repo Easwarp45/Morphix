@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Notification Views
+﻿"""
+Morphix â€” Notification Views
 """
 
 from rest_framework import generics, permissions, status

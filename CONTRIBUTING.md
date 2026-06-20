@@ -1,10 +1,10 @@
-# Contributing to Cloud File Converter
+﻿# Contributing to Morphix
 
 Thank you for your interest in contributing! This document outlines the process for contributing code, documentation, and bug reports.
 
 ---
 
-## 📋 Table of Contents
+## ðŸ“‹ Table of Contents
 
 - [Code of Conduct](#code-of-conduct)
 - [Getting Started](#getting-started)
@@ -28,12 +28,12 @@ This project adheres to the [Contributor Covenant](https://www.contributor-coven
 1. **Fork** the repository on GitHub
 2. **Clone** your fork:
    ```bash
-   git clone https://github.com/YOUR_USERNAME/cloud-file-converter.git
-   cd cloud-file-converter
+   git clone https://github.com/YOUR_USERNAME/morphix.git
+   cd morphix
    ```
 3. **Add upstream** remote:
    ```bash
-   git remote add upstream https://github.com/ORIGINAL_OWNER/cloud-file-converter.git
+   git remote add upstream https://github.com/ORIGINAL_OWNER/morphix.git
    ```
 
 ---
@@ -182,7 +182,7 @@ def convert_file(file_path: str, target_format: str) -> ConversionResult:
 
 - Follow the existing ESLint configuration
 - Use `interface` for object shapes, `type` for unions/intersections
-- All components must be properly typed — no `any`
+- All components must be properly typed â€” no `any`
 - Use React Query for server state, Zustand for client state
 
 ### Git Commit Messages
@@ -227,4 +227,4 @@ Use the [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md) template. I
 
 ## Questions?
 
-Open a [Discussion](https://github.com/YOUR_USERNAME/cloud-file-converter/discussions) — issues are for bugs and feature requests only.
+Open a [Discussion](https://github.com/YOUR_USERNAME/morphix/discussions) â€” issues are for bugs and feature requests only.

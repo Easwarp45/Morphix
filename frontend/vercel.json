@@ -1,4 +1,4 @@
-{
+﻿{
   "version": 2,
   "framework": "vite",
   "buildCommand": "npm run build",
@@ -59,15 +59,15 @@
   "env": {
     "VITE_API_URL": {
       "description": "Backend API base URL (without trailing slash)",
-      "value": "https://cloudfileconverter-api.onrender.com/api/v1"
+      "value": "https://morphix-api.onrender.com/api/v1"
     },
     "VITE_WS_URL": {
       "description": "WebSocket backend URL",
-      "value": "wss://cloudfileconverter-api.onrender.com/ws"
+      "value": "wss://morphix-api.onrender.com/ws"
     },
     "VITE_APP_NAME": {
       "description": "App display name",
-      "value": "Cloud File Converter"
+      "value": "Morphix"
     }
   }
 }

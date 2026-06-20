@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite';
+﻿import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { VitePWA } from 'vite-plugin-pwa';
@@ -12,8 +12,8 @@ export default defineConfig({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg'],
       manifest: {
-        name: 'CloudConvert File Utility',
-        short_name: 'CloudConvert',
+        name: 'morphixert File Utility',
+        short_name: 'morphixert',
         description: 'Free high-performance file conversion utility',
         theme_color: '#0f172a',
         background_color: '#0f172a',

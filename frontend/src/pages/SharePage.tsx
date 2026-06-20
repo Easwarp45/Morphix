@@ -1,5 +1,5 @@
-/* =============================================================================
-   Share Page — Public unauthenticated download page
+﻿/* =============================================================================
+   Share Page â€” Public unauthenticated download page
    ============================================================================= */
 
 import { useEffect, useState } from 'react';
@@ -76,7 +76,7 @@ export function SharePage() {
               <h3 className="font-semibold text-lg mb-1">Link Unavailable</h3>
               <p className="text-sm text-[hsl(var(--muted-foreground))] mb-6">{error}</p>
               <Link to="/" className="px-6 py-2.5 rounded-xl font-semibold bg-gradient-to-r from-primary-500 to-purple-600 text-white hover:opacity-90 transition-opacity">
-                Go to CloudConvert
+                Go to morphixert
               </Link>
             </div>
           ) : shareData ? (

@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Custom Middleware
+﻿"""
+Morphix â€” Custom Middleware
 """
 
 import logging
@@ -61,7 +61,7 @@ class AuditLogMiddleware(MiddlewareMixin):
     def _get_resource_type(path: str) -> str:
         """Extract resource type from URL path."""
         parts = path.strip("/").split("/")
-        # /api/v1/files/... → "files"
+        # /api/v1/files/... â†’ "files"
         if len(parts) >= 3:
             return parts[2]
         return "unknown"

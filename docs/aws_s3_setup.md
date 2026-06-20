@@ -1,4 +1,4 @@
-# Cloud File Converter — AWS S3 + CloudFront Setup Guide
+﻿# Morphix â€” AWS S3 + CloudFront Setup Guide
 
 This guide walks you through configuring AWS S3 for file storage and CloudFront as a CDN for production.
 
@@ -10,14 +10,14 @@ This guide walks you through configuring AWS S3 for file storage and CloudFront 
 
 ```bash
 aws s3api create-bucket \
-  --bucket cloud-file-converter-prod \
+  --bucket morphix-prod \
   --region us-east-1
 ```
 
 For regions other than `us-east-1`:
 ```bash
 aws s3api create-bucket \
-  --bucket cloud-file-converter-prod \
+  --bucket morphix-prod \
   --region ap-south-1 \
   --create-bucket-configuration LocationConstraint=ap-south-1
 ```
@@ -26,16 +26,16 @@ aws s3api create-bucket \
 
 ```bash
 aws s3api put-public-access-block \
-  --bucket cloud-file-converter-prod \
+  --bucket morphix-prod \
   --public-access-block-configuration \
     "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
 ```
 
-### 1.3 Enable Versioning (Optional — for file recovery)
+### 1.3 Enable Versioning (Optional â€” for file recovery)
 
 ```bash
 aws s3api put-bucket-versioning \
-  --bucket cloud-file-converter-prod \
+  --bucket morphix-prod \
   --versioning-configuration Status=Enabled
 ```
 
@@ -70,7 +70,7 @@ Create `lifecycle.json`:
 Apply:
 ```bash
 aws s3api put-bucket-lifecycle-configuration \
-  --bucket cloud-file-converter-prod \
+  --bucket morphix-prod \
   --lifecycle-configuration file://lifecycle.json
 ```
 
@@ -78,7 +78,7 @@ aws s3api put-bucket-lifecycle-configuration \
 
 ```bash
 aws s3api put-bucket-encryption \
-  --bucket cloud-file-converter-prod \
+  --bucket morphix-prod \
   --server-side-encryption-configuration '{
     "Rules": [{
       "ApplyServerSideEncryptionByDefault": {
@@ -110,8 +110,8 @@ Create `s3_policy.json`:
         "s3:GetBucketLocation"
       ],
       "Resource": [
-        "arn:aws:s3:::cloud-file-converter-prod",
-        "arn:aws:s3:::cloud-file-converter-prod/*"
+        "arn:aws:s3:::morphix-prod",
+        "arn:aws:s3:::morphix-prod/*"
       ]
     }
   ]
@@ -120,20 +120,20 @@ Create `s3_policy.json`:
 
 ```bash
 aws iam create-policy \
-  --policy-name CloudFileConverterS3Policy \
+  --policy-name morphixS3Policy \
   --policy-document file://s3_policy.json
 ```
 
 ### 2.2 Create IAM User
 
 ```bash
-aws iam create-user --user-name cloudfileconverter-app
+aws iam create-user --user-name morphix-app
 
 aws iam attach-user-policy \
-  --user-name cloudfileconverter-app \
-  --policy-arn arn:aws:iam::YOUR_ACCOUNT_ID:policy/CloudFileConverterS3Policy
+  --user-name morphix-app \
+  --policy-arn arn:aws:iam::YOUR_ACCOUNT_ID:policy/morphixS3Policy
 
-aws iam create-access-key --user-name cloudfileconverter-app
+aws iam create-access-key --user-name morphix-app
 ```
 
 Save the `AccessKeyId` and `SecretAccessKey` to your `.env.production`.
@@ -147,8 +147,8 @@ Save the `AccessKeyId` and `SecretAccessKey` to your `.env.production`.
 ```bash
 aws cloudfront create-origin-access-control \
   --origin-access-control-config '{
-    "Name": "CloudFileConverterOAC",
-    "Description": "OAC for Cloud File Converter S3",
+    "Name": "morphixOAC",
+    "Description": "OAC for Morphix S3",
     "SigningProtocol": "sigv4",
     "SigningBehavior": "always",
     "OriginAccessControlOriginType": "s3"
@@ -162,7 +162,7 @@ Note the returned `Id`.
 ```bash
 aws cloudfront create-distribution \
   --distribution-config '{
-    "CallerReference": "cloudfileconverter-'$(date +%s)'",
+    "CallerReference": "morphix-'$(date +%s)'",
     "DefaultCacheBehavior": {
       "ViewerProtocolPolicy": "redirect-to-https",
       "AllowedMethods": {
@@ -171,7 +171,7 @@ aws cloudfront create-distribution \
         "CachedMethods": {"Quantity": 2, "Items": ["GET","HEAD"]}
       },
       "CachePolicyId": "658327ea-f89d-4fab-a63d-7e88639e58f6",
-      "TargetOriginId": "S3-cloud-file-converter-prod",
+      "TargetOriginId": "S3-morphix-prod",
       "ForwardedValues": {
         "QueryString": false,
         "Cookies": {"Forward": "none"}
@@ -181,14 +181,14 @@ aws cloudfront create-distribution \
     "Origins": {
       "Quantity": 1,
       "Items": [{
-        "Id": "S3-cloud-file-converter-prod",
-        "DomainName": "cloud-file-converter-prod.s3.amazonaws.com",
+        "Id": "S3-morphix-prod",
+        "DomainName": "morphix-prod.s3.amazonaws.com",
         "S3OriginConfig": {"OriginAccessIdentity": ""},
         "OriginAccessControlId": "YOUR_OAC_ID"
       }]
     },
     "Enabled": true,
-    "Comment": "Cloud File Converter CDN",
+    "Comment": "Morphix CDN",
     "PriceClass": "PriceClass_100",
     "ViewerCertificate": {
       "CloudFrontDefaultCertificate": true
@@ -207,7 +207,7 @@ aws cloudfront create-distribution \
       "Service": "cloudfront.amazonaws.com"
     },
     "Action": "s3:GetObject",
-    "Resource": "arn:aws:s3:::cloud-file-converter-prod/*",
+    "Resource": "arn:aws:s3:::morphix-prod/*",
     "Condition": {
       "StringEquals": {
         "AWS:SourceArn": "arn:aws:cloudfront::YOUR_ACCOUNT_ID:distribution/YOUR_DISTRIBUTION_ID"
@@ -219,7 +219,7 @@ aws cloudfront create-distribution \
 
 ```bash
 aws s3api put-bucket-policy \
-  --bucket cloud-file-converter-prod \
+  --bucket morphix-prod \
   --policy file://cloudfront_bucket_policy.json
 ```
 
@@ -239,15 +239,15 @@ Required for browser-direct uploads:
 
 ```bash
 aws s3api put-bucket-cors \
-  --bucket cloud-file-converter-prod \
+  --bucket morphix-prod \
   --cors-configuration '{
     "CORSRules": [{
       "AllowedHeaders": ["*"],
       "AllowedMethods": ["GET", "PUT", "POST", "DELETE", "HEAD"],
       "AllowedOrigins": [
-        "https://cloudfileconverter.com",
-        "https://www.cloudfileconverter.com",
-        "https://cloudfileconverter.vercel.app"
+        "https://morphix.com",
+        "https://www.morphix.com",
+        "https://morphix.vercel.app"
       ],
       "ExposeHeaders": ["ETag"],
       "MaxAgeSeconds": 3600
@@ -261,15 +261,15 @@ aws s3api put-bucket-cors \
 
 ```bash
 # Verify bucket exists and is encrypted
-aws s3api get-bucket-encryption --bucket cloud-file-converter-prod
+aws s3api get-bucket-encryption --bucket morphix-prod
 
 # Verify public access is blocked
-aws s3api get-public-access-block --bucket cloud-file-converter-prod
+aws s3api get-public-access-block --bucket morphix-prod
 
 # Test upload
-aws s3 cp test.txt s3://cloud-file-converter-prod/test/test.txt
-aws s3 ls s3://cloud-file-converter-prod/test/
-aws s3 rm s3://cloud-file-converter-prod/test/test.txt
+aws s3 cp test.txt s3://morphix-prod/test/test.txt
+aws s3 ls s3://morphix-prod/test/
+aws s3 rm s3://morphix-prod/test/test.txt
 
 # Test CloudFront URL
 curl -I https://dXXXXXXXXXXXX.cloudfront.net/uploads/test.txt

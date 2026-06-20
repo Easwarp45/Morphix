@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — File URLs
+﻿"""
+Morphix â€” File URLs
 """
 
 from django.urls import path

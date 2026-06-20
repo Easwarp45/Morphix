@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — File Serializers
+﻿"""
+Morphix â€” File Serializers
 """
 
 from rest_framework import serializers

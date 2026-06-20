@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — E2E Tests: OCR & AI Summarization
+﻿"""
+Morphix â€” E2E Tests: OCR & AI Summarization
 =========================================================
 Tests OCR extraction from images/scanned PDFs and AI-powered
 document summarization via the Gemini API.
@@ -32,7 +32,7 @@ def make_minimal_png() -> io.BytesIO:
 @pytest.fixture(scope="module")
 def auth_headers():
     creds = {
-        "email": "ocr_e2e@cloudconv.test",
+        "email": "ocr_e2e@morphix.test",
         "password": "Ocr#E2eTest2024!",
         "first_name": "OCR",
         "last_name": "Tester",
@@ -47,7 +47,7 @@ def auth_headers():
 
 class TestOCR:
     def test_image_upload_accepted(self, auth_headers):
-        """POST /api/v1/files/ — PNG image upload should be accepted."""
+        """POST /api/v1/files/ â€” PNG image upload should be accepted."""
         response = requests.post(
             f"{BASE_URL}/files/",
             headers={k: v for k, v in auth_headers.items()},
@@ -129,12 +129,12 @@ class TestAISummarization:
 
 class TestHealthCheckEndpoint:
     def test_health_check_returns_200(self):
-        """GET /api/v1/health/ — health check must always return 200."""
+        """GET /api/v1/health/ â€” health check must always return 200."""
         response = requests.get(f"{BASE_URL}/health/")
         assert response.status_code == 200
 
     def test_health_check_json_structure(self):
-        """GET /api/v1/health/ — response body must have status fields."""
+        """GET /api/v1/health/ â€” response body must have status fields."""
         response = requests.get(f"{BASE_URL}/health/")
         assert response.status_code == 200
         data = response.json()

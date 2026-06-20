@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — E2E Tests: WebSocket Real-Time Progress
+﻿"""
+Morphix â€” E2E Tests: WebSocket Real-Time Progress
 ==============================================================
 Tests WebSocket connections for real-time conversion progress updates.
 Requires the backend to be running with Django Channels.
@@ -20,7 +20,7 @@ WS_BASE_URL = "ws://localhost:8000/ws"
 @pytest.fixture(scope="module")
 def auth_data():
     creds = {
-        "email": "ws_e2e@cloudconv.test",
+        "email": "ws_e2e@morphix.test",
         "password": "WebSocket#E2eTest2024!",
         "first_name": "WS",
         "last_name": "Tester",
@@ -79,7 +79,7 @@ class TestWebSocketConnection:
         connected_ok = connected.wait(timeout=5)
 
         if not connected_ok:
-            pytest.skip(f"WebSocket could not connect to {ws_url} — check server is running with Channels")
+            pytest.skip(f"WebSocket could not connect to {ws_url} â€” check server is running with Channels")
 
         ws_app.close()
         assert len(errors) == 0 or "Connection refused" not in errors[0], \

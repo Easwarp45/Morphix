@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Notification Model
+﻿"""
+Morphix â€” Notification Model
 """
 
 import uuid
@@ -38,4 +38,4 @@ class Notification(models.Model):
         ]
 
     def __str__(self):
-        return f"{self.title} → {self.user.email}"
+        return f"{self.title} â†’ {self.user.email}"

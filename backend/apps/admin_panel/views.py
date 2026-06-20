@@ -1,5 +1,5 @@
-"""
-Cloud File Converter — Admin Panel Views
+﻿"""
+Morphix â€” Admin Panel Views
 """
 
 from datetime import timedelta
