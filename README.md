@@ -270,3 +270,5 @@ We executed concurrent conversion load tests (Image -> JPG, Text -> PDF, ZIP Cre
 
 - **[Portfolio Case Study](file:///docs/portfolio_case_study.md)** â€” Architectural decisions, engineering challenges, and structural trade-offs.
 - **[AWS Production Deployment Guide](file:///docs/deployment_guide.md)** â€” Complete Nginx reverse proxy configs, Supervisor daemon scripts, and CloudFront caching policies.
+#   M o r p h i x  
+ 
